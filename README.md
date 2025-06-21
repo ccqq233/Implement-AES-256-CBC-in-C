@@ -2,7 +2,7 @@
 This program will generate a 256 bit key and use AES-256-CBC to encrypt and decrypt the specified file.
 
 ### Important Note
-> When encrypting/decrypting files, the output filename must be different from the input filename. Otherwise, encryption/decryption will fail and corrupt the original file.
+When encrypting/decrypting files, the output filename must be different from the input filename. Otherwise, encryption/decryption will fail and corrupt the original file.
 
 ### Before Use
 1. Confirm OpenSSL development libraries are properly installed  
@@ -12,45 +12,27 @@ This program will generate a 256 bit key and use AES-256-CBC to encrypt and decr
 
 ### Program Security Guarantees
 
-#### 🔒 Secure Key Generation & Management
-1. **Unpredictable Key Generation**  
-   Uses OpenSSL's `RAND_priv_bytes()` CSPRNG:  
-   - Dedicated interface for sensitive data (isolated from general RNG)  
-   - Guarantees unpredictability and zero statistical bias  
-   - Prevents side-channel attacks from resource contention  
+#### Secure Key Generation & Management
+1. This program generates unpredictable random bytes as keys using OpenSSL's CSPRNG, meeting the requirements of unpredictability and no statistical bias. The RAND_priv-bytes() function in the code is dedicated to generating sensitive data and is isolated from the ordinary random number interface RAND-bytes() to avoid side channel attacks caused by resource competition.
 
-2. **Entropy Assurance**  
-   Verifies sufficient cryptographic entropy before key generation  
+2. Before generating the key, ensure that the random number generator has sufficient entropy to generate cryptographic secure random numbers.
 
-3. **Secure Memory Wiping**  
-   Safely overwrites key storage memory upon program exit  
+3. When exiting the program, the memory area where the key is stored will be securely overwritten to ensure that the key does not remain in memory for recovery or theft.
 
-#### 🛡️ Core AES-256 Algorithm Security
-1. **Mathematical Foundation & Attack Resistance**  
-   - Based on rigorous finite field arithmetic  
-   - Withstood 20+ years of global cryptanalysis  
-   - Highly resistant to differential/linear cryptanalysis, integral attacks, etc.  
 
-2. **Key Space Strength**  
-   - 256-bit keyspace ≈ 1.1579 × 10⁷⁷ possible combinations  
-   - Brute-force time exceeds universe's age  
+#### The security of AES-256 algorithm
+1. After nearly 20 years of public analysis and attack attempts by top cryptographers around the world, the AES algorithm has yet to discover any effective mathematical vulnerabilities that can significantly outperform brute force cracking. Its design is based on a solid mathematical foundation (operations on finite fields).
+   
+2. The key space of this algorithm is quite large, with a 256 bit key meaning there are approximately 1.1579 x 10 ^ 77 possible keys. Even with the most powerful supercomputers currently available for brute force cracking, the time required far exceeds the age of the universe.
+   
+3. AES has strong resistance to various known cryptanalysis attacks, such as differential cryptanalysis, linear cryptanalysis, integral attacks, etc., especially when the number of rounds is sufficient (AES-256 has 14 rounds). The complexity of these attacks is still much higher than brute force cracking.
 
-3. **Round Structure Advantage**  
-   14 encryption rounds significantly increase attack complexity  
 
-#### 🔄 CBC Mode Critical Advantages
-1. **Semantic Security**  
-   - Random unique IVs ensure identical plaintext → different ciphertext  
-   - Hides statistical patterns and repetitive structures  
+#### CBC mode XORing the previous ciphertext block with the current plaintext block before encrypting, which brings key benefits:
+1. Semantic security: Even if identical plaintext blocks appear in different positions of the message (or even in different messages), as long as the initialization vector IV is random and unique, and the previous ciphertext block is different, they will be encrypted into completely different ciphertext blocks, which hides the statistical patterns and repetitive structures of the plaintext.
 
-2. **Avalanche Diffusion Effect**  
-   - Single-bit plaintext/IV change unpredictably alters all subsequent blocks  
-   - Effectively thwarts ciphertext tampering attacks  
+2. Diffusion: A change in one plaintext or IV bit during the encryption process can cause unpredictable changes to all subsequent ciphertext blocks (avalanche effect), making it difficult for attackers to intentionally tamper with the ciphertext or predict the result.
 
-3. **IV's Vital Role**  
-   Same message + different IV = completely different ciphertext  
-
-> **PS: CBC Necessity**  
-> Without CBC, identical plaintext blocks produce identical ciphertext blocks, leading to:  
-> - Data pattern leakage (e.g., similar color areas in images remain recognizable)  
-> - Significantly reduced security
+3. Random and unique IV is the key to CBC security: even if the same message is encrypted multiple times, as long as the IV is different, the resulting ciphertext is completely different, preventing attackers from inferring the similarity or content of plaintext by comparing ciphertexts.
+ 
+PS: If there is no CBC mode, the same plaintext block will be encrypted into the same ciphertext block, which will expose the pattern of the data (for example, large areas of the same color in an image still have similar features after encryption, with low security).
