@@ -29,7 +29,7 @@ When encrypting/decrypting files, the output filename must be different from the
 
 
 #### CBC mode XORing the previous ciphertext block with the current plaintext block before encrypting, which brings key benefits:
-1. Semantic security: Even if identical plaintext blocks appear in different positions of the message (or even in different messages), as long as the initialization vector IV is random and unique, and the previous ciphertext block is different, they will be encrypted into completely different ciphertext blocks, which hides the statistical patterns and repetitive structures of the plaintext.
+1. Semantic security: Even if identical plaintext blocks appear in different positions of the message (or even in different messages), as long as the initialization vector IV is random and unique, and the previous ciphertext block is different, they will be encrypted into completely different ciphertext blocks, which hides the statistical patterns and repetitive structures of the plaintext. In other words, assuming there is no CBC mode, the same plaintext block will be encrypted into the same ciphertext block, which will expose the pattern of the data (for example, large areas of the same color in an image still have similar features after encryption, with low security).
 
 2. Diffusion: A change in one plaintext or IV bit during the encryption process can cause unpredictable changes to all subsequent ciphertext blocks (avalanche effect), making it difficult for attackers to intentionally tamper with the ciphertext or predict the result.
 
