@@ -292,7 +292,7 @@ re0:
         break;
     case 3:
         if (RAND_status() != 1) {
-            fprintf(stderr, "Warning: The random number generator has insufficient entropy and is attempting to replenish it.\n");
+            fprintf(stderr, "Warning: The random number generator has insufficient entropy and is attempting to replenish it. Suggest generating a new key\n");
             RAND_poll(); //Supplement entropy to ensure that the random number generator has sufficient entropy to generate safe random numbers
         }
         if (RAND_priv_bytes(key, sizeof(key)) != 1) {    //Generate unpredictable random bytes using OpenSSL's cryptographic secure pseudo-random number generator
