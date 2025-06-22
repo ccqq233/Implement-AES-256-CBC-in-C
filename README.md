@@ -34,5 +34,3 @@ When encrypting/decrypting files, the output filename must be different from the
 2. Diffusion: A change in one plaintext or IV bit during the encryption process can cause unpredictable changes to all subsequent ciphertext blocks (avalanche effect), making it difficult for attackers to intentionally tamper with the ciphertext or predict the result.
 
 3. Random and unique IV is the key to CBC security: even if the same message is encrypted multiple times, as long as the IV is different, the resulting ciphertext is completely different, preventing attackers from inferring the similarity or content of plaintext by comparing ciphertexts.
- 
-PS: If there is no CBC mode, the same plaintext block will be encrypted into the same ciphertext block, which will expose the pattern of the data (for example, large areas of the same color in an image still have similar features after encryption, with low security).
