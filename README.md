@@ -13,7 +13,7 @@ When encrypting/decrypting files, the output filename must be different from the
 ### Program Security Guarantees
 
 #### Secure Key Generation & Management
-1. This program generates unpredictable random bytes as keys using OpenSSL's CSPRNG, meeting the requirements of unpredictability and no statistical bias. The RAND_priv-bytes() function in the code is dedicated to generating sensitive data and is isolated from the ordinary random number interface RAND-bytes() to avoid side channel attacks caused by resource competition.
+1. This program generates unpredictable random bytes as keys using OpenSSL's cryptographic secure pseudo-random number generator (CSPRNG), meeting the requirements of unpredictability and no statistical bias. The RAND_priv-bytes() function in the code is dedicated to generating sensitive data and is isolated from the ordinary random number interface RAND-bytes() to avoid side channel attacks caused by resource competition.
 
 2.  Before generating the key, the program will ensure that the random number generator has sufficient entropy to generate cryptographic secure random numbers.
 
