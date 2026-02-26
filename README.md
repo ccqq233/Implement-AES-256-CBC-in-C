@@ -21,11 +21,11 @@ When encrypting/decrypting files, the output filename must be different from the
 
 
 #### The security of AES-256 algorithm
-1. After nearly 20 years of public analysis and attack attempts by top cryptographers around the world, the AES algorithm has yet to discover any effective mathematical vulnerabilities that can significantly outperform brute force cracking. Its design is based on a solid mathematical foundation (operations on finite fields).
+1. After nearly 20 years of public analysis and attack attempts by top cryptographers around the world, the AES algorithm has yet to discover any effective mathematical vulnerabilities that can significantly outperform brute force cracking[1]. Its design is based on a solid mathematical foundation (operations on finite fields)[2].
    
-2. The key space of this algorithm is quite large, with a 256 bit key meaning there are approximately 1.1579 x 10 ^ 77 possible keys. Even with the most powerful supercomputers currently available for brute force cracking, the time required far exceeds the age of the universe.
+2. The key space of this algorithm is quite large, with a 256 bit key meaning there are approximately 1.1579 x 10 ^ 77 possible keys. Even with the most powerful supercomputers currently available for brute force cracking, the time required far exceeds the age of the universe[1].
    
-3. AES has strong resistance to various known cryptanalysis attacks, such as differential cryptanalysis, linear cryptanalysis, integral attacks, etc., especially when the number of rounds is sufficient (AES-256 has 14 rounds). The complexity of these attacks is still much higher than brute force cracking.
+3. AES has strong resistance to various known cryptanalysis attacks, such as differential cryptanalysis, linear cryptanalysis, integral attacks, etc., especially when the number of rounds is sufficient (AES-256 has 14 rounds). The complexity of these attacks is still much higher than brute force cracking[3].
 
 
 #### CBC mode XORing the previous ciphertext block with the current plaintext block before encrypting, which brings key benefits:
@@ -34,3 +34,8 @@ When encrypting/decrypting files, the output filename must be different from the
 2. Diffusion: A change in one plaintext or IV bit during the encryption process can cause unpredictable changes to all subsequent ciphertext blocks (avalanche effect), making it difficult for attackers to intentionally tamper with the ciphertext or predict the result.
 
 3. Random and unique IV is the key to the safety of CBC: even if the same message is encrypted multiple times, as long as the IV is different, the resulting ciphertext is completely different, preventing attackers from inferring the similarity or content of plaintext by comparing ciphertexts.
+
+## References
+[1] Daemen, J., & Rijmen, V. (2002). *The Design of Rijndael: AES - The Advanced Encryption Standard*. Springer-Verlag. (或者使用 FIPS 197 官方文档)
+[2] National Institute of Standards and Technology. (2001). *FIPS PUB 197: Advanced Encryption Standard (AES)*. 
+[3] Ferguson, N., Kohno, T., & Schneier, B. (2010). *Cryptography Engineering: Design Principles and Practical Applications*. Wiley.
