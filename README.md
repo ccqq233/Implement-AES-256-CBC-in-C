@@ -37,5 +37,7 @@ When encrypting/decrypting files, the output filename must be different from the
 
 ## References
 [1] Daemen, J., & Rijmen, V. (2002). *The Design of Rijndael: AES - The Advanced Encryption Standard*. Springer-Verlag. 
+
 [2] National Institute of Standards and Technology. (2001). *FIPS PUB 197: Advanced Encryption Standard (AES)*. 
+
 [3] Ferguson, N., Kohno, T., & Schneier, B. (2010). *Cryptography Engineering: Design Principles and Practical Applications*. Wiley.
