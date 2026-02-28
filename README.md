@@ -41,3 +41,7 @@ When encrypting/decrypting files, the output filename must be different from the
 [2] National Institute of Standards and Technology. (2001). *FIPS PUB 197: Advanced Encryption Standard (AES)*. 
 
 [3] Ferguson, N., Kohno, T., & Schneier, B. (2010). *Cryptography Engineering: Design Principles and Practical Applications*. Wiley.
+
+## License
+
+This project is licensed under the MIT License – see the [LICENSE](LICENSE) file for details.
